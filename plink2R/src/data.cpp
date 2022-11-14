@@ -1,12 +1,14 @@
 
 #include "data.hpp"
 
+#include <stdlib.h>
+#include <time.h>
 #include <fcntl.h>
 #include <stdexcept>
 
 Data::Data(const char* bedfile, const char* famfile, bool verbose)
 {
-   srand48(time(NULL));
+   srand(time(NULL));
    N = 0;
    p = 0;
    K = 0;
@@ -240,7 +242,7 @@ void Data::read_bed(int impute)
 	       x = tmp2[i];
 	       if(x == PLINK_NA)
 	       {
-	          double r = drand48();
+	          double r = rand() / (RAND_MAX + 1.0);
 	          if(r < cumsum[0])
 	             tmp3(i) = 0.0;
 	          else if(r < cumsum[1])
